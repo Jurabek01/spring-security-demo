@@ -24,7 +24,7 @@ public class MyController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('developers:read')")// 3 version
+    @PreAuthorize("hasAuthority('developers:read')")
     public Developer getDeveloperById(@PathVariable Long id) {
         return DEVELOPERS.stream()
                 .filter(developer -> developer.getId().equals(id))
@@ -33,13 +33,14 @@ public class MyController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('developers:write')") // 3 version
+    @PreAuthorize("hasAuthority('developers:write')")
     public Developer addDeveloper(@RequestBody Developer developer) {
         DEVELOPERS.add(developer);
         return developer;
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('developers:write')")
     public void deleteDeveloper(@PathVariable Long id) {
         DEVELOPERS.removeIf(developer -> developer.getId().equals(id));
     }
